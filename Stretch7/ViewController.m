@@ -10,6 +10,11 @@
 
 @interface ViewController ()
 
+@property (nonatomic, assign) NSInteger minutes;
+
+@property (nonatomic, assign) NSInteger seconds;
+
+
 @end
 
 @implementation ViewController
@@ -17,6 +22,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    self.minutes = 2;
+    self.seconds = 15;
+    [self decreaseSecond];
+    
+}
+
+-(void)decreaseSecond{
+    if (_seconds > 0) {
+        NSLog(@"Minutes: %ld.  Seconds: %ld", _minutes, _seconds);
+        _seconds--;
+        [self performSelector:@selector(decreaseSecond) withObject:nil afterDelay:0.999];
+    }
+    else if (_minutes > 0){
+        NSLog(@"Minutes: %ld.  Seconds: %ld", _minutes, _seconds);
+        _minutes--;
+        _seconds = 59;
+        [self performSelector:@selector(decreaseSecond) withObject:nil afterDelay:0.999];
+    }
+    else{
+        NSLog(@"Timer Complete!");
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {
